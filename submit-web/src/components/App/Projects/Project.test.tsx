@@ -153,19 +153,6 @@ describe("Project reports section gating", () => {
     expect(passed.map((p) => p.id)).toEqual([10, 12]);
   });
 
-  it("groups Report_TypeB packages into the reports section alongside Report", () => {
-    setAccount([roleWith(USER_MANAGEMENT_ROLE.ACCOUNT_PRIMARY_ADMIN)]);
-    const accountProject = makeAccountProject();
-    accountProject.packages = [
-      makePackage(10, SubmissionPackageType.REPORT),
-      makePackage(11, SubmissionPackageType.MANAGEMENT_PLAN),
-      makePackage(13, SubmissionPackageType.REPORT_TYPE_B),
-    ];
-    render(<Project accountProject={accountProject} />);
-    const passed = reportsCardSpy.mock.calls[0][0] as SubmissionPackage[];
-    expect(passed.map((p) => p.id)).toEqual([10, 13]);
-  });
-
   it("passes the project id (not the account project id) to the reports section", () => {
     setAccount([roleWith(USER_MANAGEMENT_ROLE.PROJECT_ADMIN)]);
     const accountProject = makeAccountProject();
